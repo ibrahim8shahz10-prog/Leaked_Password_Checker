@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --breach-red: #ff2d55;
+  --breach-green: #00ff9f;
+  --breach-cyan: #00d4ff;
+  --breach-orange: #ff6b35;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0a0a0f;
+  color: #e0e0e0;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Scanline overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 212, 255, 0.015) 2px,
+    rgba(0, 212, 255, 0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0f; }
+::-webkit-scrollbar-thumb { background: #00d4ff44; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #00d4ff88; }
+
+/* Glow effects */
+.glow-cyan { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 40px rgba(0, 212, 255, 0.1); }
+.glow-red { box-shadow: 0 0 20px rgba(255, 45, 85, 0.4), 0 0 40px rgba(255, 45, 85, 0.2); }
+.glow-green { box-shadow: 0 0 20px rgba(0, 255, 159, 0.4), 0 0 40px rgba(0, 255, 159, 0.2); }
+
+/* Input styles */
+.breach-input {
+  background: rgba(18, 18, 26, 0.8);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  color: #e0e0e0;
+  font-family: 'Share Tech Mono', monospace;
+  transition: all 0.3s ease;
+}
+.breach-input:focus {
+  outline: none;
+  border-color: rgba(0, 212, 255, 0.6);
+  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.1), 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+/* Button */
+.breach-btn {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 212, 255, 0.2));
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  color: #00d4ff;
+  font-family: 'Share Tech Mono', monospace;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.breach-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+.breach-btn:hover::before { left: 100%; }
+.breach-btn:hover {
+  border-color: rgba(0, 212, 255, 0.8);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  color: #fff;
+}
+
+.breach-btn-danger {
+  background: linear-gradient(135deg, rgba(255, 45, 85, 0.1), rgba(255, 45, 85, 0.2));
+  border: 1px solid rgba(255, 45, 85, 0.4);
+  color: #ff2d55;
+}
+.breach-btn-danger:hover {
+  border-color: rgba(255, 45, 85, 0.8);
+  box-shadow: 0 0 20px rgba(255, 45, 85, 0.3);
+  color: #fff;
+}
+
+.breach-btn-success {
+  background: linear-gradient(135deg, rgba(0, 255, 159, 0.1), rgba(0, 255, 159, 0.2));
+  border: 1px solid rgba(0, 255, 159, 0.4);
+  color: #00ff9f;
+}
+.breach-btn-success:hover {
+  border-color: rgba(0, 255, 159, 0.8);
+  box-shadow: 0 0 20px rgba(0, 255, 159, 0.3);
+  color: #fff;
+}
+
+/* Card */
+.breach-card {
+  background: rgba(18, 18, 26, 0.9);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+}
+
+/* Typing cursor */
+.cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: #00d4ff;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* Progress bar */
+.strength-bar {
+  height: 4px;
+  border-radius: 2px;
+  transition: width 0.5s ease, background 0.5s ease;
+}
+
+/* Matrix rain canvas */
+#matrix-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  opacity: 0.04;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Result pulse animation */
+@keyframes resultPulse {
+  0%, 100% { box-shadow: 0 0 20px currentColor; }
+  50% { box-shadow: 0 0 40px currentColor, 0 0 60px currentColor; }
+}
+.result-pulse { animation: resultPulse 2s ease-in-out infinite; }
+
+/* Shield icon float */
+.shield-float { animation: float 6s ease-in-out infinite; }
+
+/* Hex grid background */
+.hex-bg {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='52' viewBox='0 0 60 52' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 2L29 10V26L15 34L1 26V10L15 2Z' stroke='%2300d4ff' stroke-opacity='0.05' stroke-width='1'/%3E%3Cpath d='M45 2L59 10V26L45 34L31 26V10L45 2Z' stroke='%2300d4ff' stroke-opacity='0.05' stroke-width='1'/%3E%3Cpath d='M30 28L44 36V52L30 60L16 52V36L30 28Z' stroke='%2300d4ff' stroke-opacity='0.05' stroke-width='1'/%3E%3C/svg%3E");
+}
